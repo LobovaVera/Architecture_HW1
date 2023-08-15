@@ -1,6 +1,6 @@
 package InMemoryModel;
 
 public interface IModelChanger {
-    
-    void NotifyChange(IModelChanger sender);
+
+    void notifyChange(IModelChanger sender);
 }

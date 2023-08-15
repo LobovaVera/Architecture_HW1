@@ -9,28 +9,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelStore implements IModelChanger{
-    public List<PoligonalModel> Models;
+    public List<PoligonalModel> models;
 
-    public List<Scene> Scenes;
-    public List<Flash> Flashes;
-    public List<Camera> Cameras;
-    private List<IModelChangeObserver> ChangeObservers;
+    public List<Scene> scenes;
+    public List<Flash> flashes;
+    public List<Camera> cameras;
+    private IModelChangeObserver[] changeObservers;
 
-    public ModelStore(List<IModelChangeObserver>  changedObserver){
-        this.ChangeObservers = changedObserver;
-        this.Models = new ArrayList<>();
-        this.Scenes = new ArrayList<>();
-        this.Flashes = new ArrayList<>();
-        this.Cameras = new ArrayList<>();
+    public ModelStore(IModelChangeObserver[] changedObservers){
+        this.changeObservers = changeObservers;
+        this.models = new ArrayList<PoligonalModel>();
+        this.scenes = new ArrayList<Scene>();
+        this.flashes = new ArrayList<Flash>();
+        this.cameras = new ArrayList<Camera>();
+
+        models.add(new PoligonalModel());
+        scenes.add(new Scene(0, models, flashes));
+        flashes.add(new Flash());
+        cameras.add(new Camera());
 
     }
 
-    public Scene GetScene(int id){
+    public Scene GetScena(int id){
 
-     return Scenes.get(id);
+        for (Scene scene : scenes) {
+            if (scene.getId() == id) {
+                return scene;
+            }
+        }
+     return scenes.get(0);
     }
     @Override
-    public void NotifyChange(IModelChanger sender){
+    public void notifyChange(IModelChanger sender) {
 
     }
 }
